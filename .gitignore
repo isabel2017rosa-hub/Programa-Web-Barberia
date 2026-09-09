@@ -3,3 +3,12 @@ target/
 *.war
 .idea/
 .vscode/
+
+# React / Vite
+node_modules/
+dist/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example

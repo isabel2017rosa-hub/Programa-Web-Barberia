@@ -1,0 +1,1247 @@
+/* =========================================================
+   ESTILOS GENERALES
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+
+/* =========================================================
+   ENCABEZADO GENERAL
+   ========================================================= */
+
+.encabezado {
+  background-color: #222;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.encabezado h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.encabezado p {
+  margin: 10px 0 0;
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.contenido {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+
+/* =========================================================
+   SECCIONES GENERALES
+   ========================================================= */
+
+.contenido section {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contenido h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   BOTONES GENERALES
+   ========================================================= */
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #222;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+
+/* =========================================================
+   PANEL ADMINISTRADOR
+   ========================================================= */
+
+.panel-admin {
+  width: 100%;
+}
+
+.panel-titulo {
+  margin-bottom: 25px;
+}
+
+.panel-titulo h2 {
+  margin: 0 0 10px;
+}
+
+.panel-titulo p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   MENÚ ADMINISTRADOR
+   ========================================================= */
+
+.menu-admin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.menu-admin button {
+  padding: 10px 18px;
+  border-radius: 6px;
+}
+
+
+/* =========================================================
+   CONTENIDO DE MÓDULOS
+   ========================================================= */
+
+.contenido-modulo {
+  width: 100%;
+}
+
+.modulo-panel {
+  width: 100%;
+}
+
+.modulo-panel h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.modulo-panel p {
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.modulo-placeholder {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   FORMULARIO CLIENTES
+   ========================================================= */
+
+.formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin-top: 25px;
+}
+
+.formulario form div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.formulario label {
+  font-weight: bold;
+}
+
+.formulario input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.formulario button {
+  width: 180px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   TABLA CLIENTES
+   ========================================================= */
+
+.lista-clientes {
+  width: 100%;
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+.lista-clientes table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: white;
+}
+
+.lista-clientes th,
+.lista-clientes td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.lista-clientes th {
+  background-color: #222;
+  color: white;
+}
+
+.lista-clientes tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.lista-clientes tr:hover {
+  background-color: #eeeeee;
+}
+
+.lista-clientes td button {
+  margin-right: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.lista-clientes td button:last-child {
+  margin-right: 0;
+}
+
+
+/* =========================================================
+   FORMULARIO BARBEROS
+   ========================================================= */
+
+.form-barbero {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 500px;
+  margin-top: 25px;
+}
+
+.form-barbero div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-barbero label {
+  font-weight: bold;
+}
+
+.form-barbero input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-barbero button {
+  width: 180px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   TABLA BARBEROS
+   ========================================================= */
+
+.lista-barberos {
+  width: 100%;
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+.lista-barberos table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.lista-barberos th,
+.lista-barberos td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.lista-barberos th {
+  background-color: #222;
+  color: white;
+}
+
+.lista-barberos tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.lista-barberos tr:hover {
+  background-color: #eeeeee;
+}
+
+
+/* =========================================================
+   FORMULARIO SERVICIOS
+   ========================================================= */
+
+.form-servicio {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 600px;
+  margin-top: 25px;
+}
+
+.form-servicio div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-servicio label {
+  font-weight: bold;
+}
+
+.form-servicio input,
+.form-servicio select,
+.form-servicio textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-servicio textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.form-servicio button {
+  width: 180px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   TABLA SERVICIOS
+   ========================================================= */
+
+.lista-servicios {
+  width: 100%;
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+.lista-servicios table {
+  width: 100%;
+  min-width: 750px;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.lista-servicios th,
+.lista-servicios td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.lista-servicios th {
+  background-color: #222;
+  color: white;
+}
+
+.lista-servicios tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.lista-servicios tr:hover {
+  background-color: #eeeeee;
+}
+
+
+/* =========================================================
+   FORMULARIO CITAS
+   ========================================================= */
+
+.form-cita {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 500px;
+  margin-top: 25px;
+}
+
+.form-cita div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-cita label {
+  font-weight: bold;
+}
+
+.form-cita select,
+.form-cita input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-cita button {
+  width: 180px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   TABLA CITAS
+   ========================================================= */
+
+.lista-citas {
+  width: 100%;
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+.lista-citas table {
+  width: 100%;
+  min-width: 750px;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.lista-citas th,
+.lista-citas td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.lista-citas th {
+  background-color: #222;
+  color: white;
+}
+
+.lista-citas tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.lista-citas tr:hover {
+  background-color: #eeeeee;
+}
+
+
+/* =========================================================
+   FORMULARIO PAGOS
+   ========================================================= */
+
+.form-pago {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 500px;
+  margin-top: 25px;
+}
+
+.form-pago div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-pago label {
+  font-weight: bold;
+}
+
+.form-pago input,
+.form-pago select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-pago button {
+  width: 180px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   TABLA PAGOS
+   ========================================================= */
+
+.lista-pagos {
+  width: 100%;
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+.lista-pagos table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.lista-pagos th,
+.lista-pagos td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.lista-pagos th {
+  background-color: #222;
+  color: white;
+}
+
+.lista-pagos tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.lista-pagos tr:hover {
+  background-color: #eeeeee;
+}
+
+
+/* =========================================================
+   REPORTES
+   ========================================================= */
+
+.reportes {
+  width: 100%;
+}
+
+.filtro-reporte {
+  margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 300px;
+}
+
+.filtro-reporte label {
+  font-weight: bold;
+}
+
+.filtro-reporte select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.resumen-reportes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 25px 0;
+}
+
+.tarjeta-reporte {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.tarjeta-reporte h3 {
+  margin: 0 0 12px;
+}
+
+.tarjeta-reporte .valor {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.resumen-periodo {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+.tabla-reportes {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla-reportes table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+}
+
+.tabla-reportes th,
+.tabla-reportes td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.tabla-reportes th {
+  background-color: #222;
+  color: white;
+}
+
+
+/* =========================================================
+   =========================================================
+   PANEL DEL CLIENTE
+   =========================================================
+   ========================================================= */
+
+.cliente-panel {
+  width: 100%;
+}
+
+.cliente-encabezado {
+  background-color: #222;
+  color: white;
+  padding: 20px 25px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.cliente-encabezado h2 {
+  margin: 0 0 8px;
+}
+
+.cliente-encabezado p {
+  margin: 0;
+}
+
+.boton-cerrar {
+  background-color: #222;
+  border: 1px solid #777;
+}
+
+.menu-cliente {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.menu-cliente button {
+  padding: 11px 18px;
+  font-weight: bold;
+}
+
+.cliente-inicio,
+.cliente-modulo {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cliente-inicio > p,
+.cliente-modulo > p {
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   OPCIONES CLIENTE
+   ========================================================= */
+
+.cliente-opciones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 25px 0 35px;
+}
+
+.cliente-opciones button {
+  min-height: 70px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   ÚLTIMOS SERVICIOS CLIENTE
+   ========================================================= */
+
+.ultimos-servicios {
+  margin-top: 30px;
+}
+
+.ultimos-servicios h3 {
+  margin-bottom: 18px;
+}
+
+.ultimos-servicios table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ultimos-servicios th,
+.ultimos-servicios td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.ultimos-servicios th {
+  background-color: #222;
+  color: white;
+}
+
+.ultimos-servicios tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+
+/* =========================================================
+   FORMULARIO CITA CLIENTE
+   ========================================================= */
+
+.form-cliente-cita {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 550px;
+}
+
+.form-cliente-cita div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-cliente-cita label {
+  font-weight: bold;
+}
+
+.form-cliente-cita select,
+.form-cliente-cita input {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-cliente-cita button {
+  width: 180px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   CITA ACTUAL CLIENTE
+   ========================================================= */
+
+.cita-actual,
+.sin-cita {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 25px;
+  background-color: #fafafa;
+  max-width: 650px;
+}
+
+.cita-actual h3,
+.sin-cita h3 {
+  margin-top: 0;
+}
+
+.datos-cita {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.datos-cita p {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.acciones-cita {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+
+/* =========================================================
+   HISTORIAL CLIENTE
+   ========================================================= */
+
+.tabla-historial {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla-historial table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+}
+
+.tabla-historial th,
+.tabla-historial td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.tabla-historial th {
+  background-color: #222;
+  color: white;
+}
+
+.tabla-historial tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+
+/* =========================================================
+   =========================================================
+   PANEL DEL BARBERO
+   =========================================================
+   ========================================================= */
+
+.barbero-panel {
+  width: 100%;
+}
+
+
+/* =========================================================
+   ENCABEZADO BARBERO
+   ========================================================= */
+
+.barbero-encabezado {
+  background-color: #222;
+  color: white;
+  padding: 20px 25px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.barbero-encabezado h2 {
+  margin: 0 0 8px;
+}
+
+.barbero-encabezado p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   INFORMACIÓN BARBERO
+   ========================================================= */
+
+.barbero-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+.barbero-info h2 {
+  margin: 0 0 10px;
+}
+
+.barbero-info p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   DISPONIBILIDAD
+   ========================================================= */
+
+.disponibilidad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  padding: 15px 18px;
+  border-radius: 8px;
+}
+
+.disponibilidad span {
+  font-weight: bold;
+}
+
+.estado-disponible {
+  background-color: #198754;
+}
+
+.estado-disponible:hover {
+  background-color: #157347;
+}
+
+.estado-no-disponible {
+  background-color: #777;
+}
+
+.estado-no-disponible:hover {
+  background-color: #555;
+}
+
+
+/* =========================================================
+   FILTRO AGENDA
+   ========================================================= */
+
+.filtro-agenda {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.filtro-agenda h3 {
+  margin: 0;
+}
+
+.campo-fecha {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.campo-fecha label {
+  font-weight: bold;
+}
+
+.campo-fecha input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.boton-buscar {
+  height: 40px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   RESUMEN BARBERO
+   ========================================================= */
+
+.resumen-barbero {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.tarjeta-barbero {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta-barbero h3 {
+  margin: 0 0 10px;
+  font-size: 25px;
+}
+
+.tarjeta-barbero p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   TABLA BARBERO
+   ========================================================= */
+
+.lista-citas-barbero {
+  width: 100%;
+}
+
+.lista-citas-barbero h2 {
+  margin-top: 0;
+}
+
+.lista-citas-barbero > p {
+  margin-bottom: 20px;
+}
+
+.tabla-barbero {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla-barbero table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+}
+
+.tabla-barbero th,
+.tabla-barbero td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tabla-barbero th {
+  background-color: #222;
+  color: white;
+}
+
+.tabla-barbero tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.tabla-barbero tr:hover {
+  background-color: #eeeeee;
+}
+
+
+/* =========================================================
+   ESTADOS DE CITAS
+   ========================================================= */
+
+.estado-cita {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.estado-terminada {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.estado-en-proceso {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.estado-pendiente {
+  background-color: #fff3cd;
+  color: #664d03;
+}
+
+.estado-cancelada {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+
+/* =========================================================
+   ACCIONES BARBERO
+   ========================================================= */
+
+.acciones-barbero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.acciones-barbero button {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.acciones-barbero button:last-child {
+  background-color: #555;
+}
+
+
+/* =========================================================
+   INFORMACIÓN BARBERO
+   ========================================================= */
+
+.informacion-barbero {
+  margin-top: 25px;
+}
+
+.informacion-barbero h3 {
+  margin-top: 0;
+}
+
+.informacion-barbero p {
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   DISEÑO RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .contenido {
+    width: 94%;
+  }
+
+  .resumen-reportes,
+  .resumen-barbero {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cliente-opciones {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .encabezado {
+    padding: 25px 15px;
+  }
+
+  .encabezado h1 {
+    font-size: 32px;
+  }
+
+  .encabezado p {
+    font-size: 16px;
+  }
+
+  .contenido {
+    width: 95%;
+    margin: 20px auto;
+    gap: 20px;
+  }
+
+  .contenido section {
+    padding: 18px;
+  }
+
+
+  /* Menús */
+
+  .menu-admin,
+  .menu-cliente {
+    gap: 8px;
+  }
+
+  .menu-admin button,
+  .menu-cliente button {
+    padding: 9px 12px;
+  }
+
+
+  /* Cliente */
+
+  .cliente-encabezado,
+  .barbero-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cliente-inicio,
+  .cliente-modulo {
+    padding: 20px;
+  }
+
+
+  /* Barbero */
+
+  .barbero-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filtro-agenda {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resumen-reportes,
+  .resumen-barbero {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* Formularios */
+
+  .form-cliente-cita,
+  .form-cita,
+  .form-barbero,
+  .form-servicio,
+  .form-pago {
+    max-width: 100%;
+  }
+
+
+  /* Acciones */
+
+  .acciones-cita {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}

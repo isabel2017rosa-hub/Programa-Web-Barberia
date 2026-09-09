@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/ClienteServlet")
@@ -18,148 +19,388 @@ public class ClienteServlet extends HttpServlet {
     private ClienteRepository clienteRepository;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         clienteRepository = new ClienteRepository();
     }
 
-    // ==========================
-    // MÉTODO GET
-    // ==========================
     @Override
-    protected void doGet(HttpServletRequest request,
-                        HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws ServletException, IOException {
+
+        configurarCors(response);
 
         String accion = request.getParameter("accion");
 
-        if (accion == null) {
+        if (accion == null || accion.isEmpty()) {
             accion = "listar";
         }
 
-        if ("listar".equals(accion)) {
+        switch (accion) {
 
-            List<Cliente> clientes = clienteRepository.consultarTodos();
+            case "listar":
+                request.setAttribute(
+                        "clientes",
+                        clienteRepository.consultarTodos()
+                );
 
-            request.setAttribute("clientes", clientes);
+                request.getRequestDispatcher(
+                        "/vistas/clientes.jsp"
+                ).forward(request, response);
+                break;
 
-            request.getRequestDispatcher("/vistas/clientes.jsp")
-                    .forward(request, response);
+            case "json":
+                enviarClientesJson(response);
+                break;
+
+            default:
+                response.sendError(
+                        HttpServletResponse.SC_BAD_REQUEST,
+                        "Acción no válida."
+                );
+                break;
         }
     }
 
-    // ==========================
-    // MÉTODO POST
-    // ==========================
     @Override
-    protected void doPost(HttpServletRequest request,
-                        HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
+        configurarCors(response);
 
         String accion = request.getParameter("accion");
 
-        // ==========================
-        // INSERTAR
-        // ==========================
-        if ("insertar".equals(accion)) {
-
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String telefono = request.getParameter("telefono");
-            String correo = request.getParameter("correo");
-            String contrasena = request.getParameter("contrasena");
-
-            Cliente cliente = new Cliente();
-
-            cliente.setNomCli(nombre);
-            cliente.setApeCli(apellido);
-            cliente.setTelCli(telefono);
-            cliente.setCorreo(correo);
-            cliente.setContraCli(contrasena);
-
-            boolean resultado = clienteRepository.insertar(cliente);
-
-            if (resultado) {
-                response.sendRedirect(request.getContextPath() + "/ClienteServlet?accion=listar");
-            } else {
-                mostrarError(request, response, "No fue posible registrar el cliente.");
-            }
+        if (accion == null || accion.isEmpty()) {
+            accion = "";
         }
 
-        // ==========================
-        // ACTUALIZAR
-        // ==========================
-        else if ("actualizar".equals(accion)) {
+        switch (accion) {
 
-            int idCli = Integer.parseInt(request.getParameter("idCli"));
+            // =====================================================
+            // INSERTAR DESDE JSP
+            // =====================================================
+            case "insertar":
 
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String telefono = request.getParameter("telefono");
-            String correo = request.getParameter("correo");
-            String contrasena = request.getParameter("contrasena");
+                Cliente nuevoCliente = crearClienteDesdeRequest(request);
 
-            Cliente cliente = new Cliente();
+                clienteRepository.insertar(nuevoCliente);
 
-            cliente.setIdCli(idCli);
-            cliente.setNomCli(nombre);
-            cliente.setApeCli(apellido);
-            cliente.setTelCli(telefono);
-            cliente.setCorreo(correo);
-            cliente.setContraCli(contrasena);
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/ClienteServlet?accion=listar"
+                );
+                break;
 
-            boolean resultado = clienteRepository.actualizar(cliente);
+            // =====================================================
+            // INSERTAR DESDE REACT
+            // =====================================================
+            case "insertarJson":
 
-            if (resultado) {
-                response.sendRedirect(request.getContextPath() + "/ClienteServlet?accion=listar");
-            } else {
-                mostrarError(request, response, "No fue posible actualizar el cliente.");
-            }
-        }
+                try {
 
-        // ==========================
-        // ELIMINAR
-        // ==========================
-        else if ("eliminar".equals(accion)) {
+                    Cliente cliente = crearClienteDesdeRequest(request);
 
-            int idCli = Integer.parseInt(request.getParameter("idCli"));
+                    clienteRepository.insertar(cliente);
 
-            boolean resultado = clienteRepository.eliminar(idCli);
+                    enviarRespuestaJson(
+                            response,
+                            HttpServletResponse.SC_OK,
+                            true,
+                            "Cliente registrado correctamente."
+                    );
 
-            if (resultado) {
-                response.sendRedirect(request.getContextPath() + "/ClienteServlet?accion=listar");
-            } else {
-                mostrarError(request, response, "No fue posible eliminar el cliente.");
-            }
+                } catch (Exception e) {
+
+                    enviarRespuestaJson(
+                            response,
+                            HttpServletResponse.SC_BAD_REQUEST,
+                            false,
+                            "No fue posible registrar el cliente."
+                    );
+                }
+
+                break;
+
+            // =====================================================
+            // ACTUALIZAR DESDE JSP
+            // =====================================================
+            case "actualizar":
+
+                Cliente clienteActualizar =
+                        crearClienteDesdeRequest(request);
+
+                int idActualizar = Integer.parseInt(
+                        request.getParameter("idCli")
+                );
+
+                clienteActualizar.setIdCli(idActualizar);
+
+                clienteRepository.actualizar(clienteActualizar);
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/ClienteServlet?accion=listar"
+                );
+                break;
+
+            // =====================================================
+            // ACTUALIZAR DESDE REACT
+            // =====================================================
+            case "actualizarJson":
+
+                try {
+
+                    int idCli = Integer.parseInt(
+                            request.getParameter("idCli")
+                    );
+
+                    Cliente clienteEditado =
+                            crearClienteDesdeRequest(request);
+
+                    clienteEditado.setIdCli(idCli);
+
+                    clienteRepository.actualizar(clienteEditado);
+
+                    enviarRespuestaJson(
+                            response,
+                            HttpServletResponse.SC_OK,
+                            true,
+                            "Cliente actualizado correctamente."
+                    );
+
+                } catch (Exception e) {
+
+                    enviarRespuestaJson(
+                            response,
+                            HttpServletResponse.SC_BAD_REQUEST,
+                            false,
+                            "No fue posible actualizar el cliente."
+                    );
+                }
+
+                break;
+
+            // =====================================================
+            // ELIMINAR DESDE JSP
+            // =====================================================
+            case "eliminar":
+
+                int idEliminar = Integer.parseInt(
+                        request.getParameter("idCli")
+                );
+
+                clienteRepository.eliminar(idEliminar);
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/ClienteServlet?accion=listar"
+                );
+                break;
+
+            // =====================================================
+            // ELIMINAR DESDE REACT
+            // =====================================================
+            case "eliminarJson":
+
+                try {
+
+                    int idCli = Integer.parseInt(
+                            request.getParameter("idCli")
+                    );
+
+                    clienteRepository.eliminar(idCli);
+
+                    enviarRespuestaJson(
+                            response,
+                            HttpServletResponse.SC_OK,
+                            true,
+                            "Cliente eliminado correctamente."
+                    );
+
+                } catch (Exception e) {
+
+                    enviarRespuestaJson(
+                            response,
+                            HttpServletResponse.SC_BAD_REQUEST,
+                            false,
+                            "No fue posible eliminar el cliente."
+                    );
+                }
+
+                break;
+
+            default:
+
+                response.sendError(
+                        HttpServletResponse.SC_BAD_REQUEST,
+                        "Acción no válida."
+                );
+
+                break;
         }
     }
 
-    // ==========================
-    // PÁGINA DE ERROR
-    // ==========================
-    private void mostrarError(HttpServletRequest request,
-                        HttpServletResponse response,
-                        String mensaje)
-        throws IOException {
+    // =========================================================
+    // CREAR CLIENTE DESDE REQUEST
+    // =========================================================
+    private Cliente crearClienteDesdeRequest(
+            HttpServletRequest request
+    ) {
 
-    response.setContentType("text/html;charset=UTF-8");
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        String telefono = request.getParameter("telefono");
+        String correo = request.getParameter("correo");
+        String contrasena = request.getParameter("contrasena");
 
-    response.getWriter().println("""
-            <!DOCTYPE html>
-            <html lang="es">
-            <head>
-                <meta charset="UTF-8">
-                <title>Error</title>
-            </head>
-            <body>
-                <h1>Error en la operación</h1>
-                <p>%s</p>
-                <a href="%s/ClienteServlet?accion=listar">
-                    Volver a clientes
-                </a>
-            </body>
-            </html>
-            """.formatted(mensaje, request.getContextPath()));
-}
+        return new Cliente(
+                nombre,
+                apellido,
+                telefono,
+                correo,
+                contrasena
+        );
+    }
+
+    // =========================================================
+    // ENVIAR CLIENTES EN JSON
+    // =========================================================
+    private void enviarClientesJson(
+            HttpServletResponse response
+    ) throws IOException {
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        List<Cliente> clientes =
+                clienteRepository.consultarTodos();
+
+        PrintWriter out = response.getWriter();
+
+        out.print("[");
+
+        for (int i = 0; i < clientes.size(); i++) {
+
+            Cliente cliente = clientes.get(i);
+
+            out.print("{");
+
+            out.print("\"idCli\":" + cliente.getIdCli() + ",");
+
+            out.print("\"nomCli\":\""
+                    + escaparJson(cliente.getNomCli())
+                    + "\",");
+
+            out.print("\"apeCli\":\""
+                    + escaparJson(cliente.getApeCli())
+                    + "\",");
+
+            out.print("\"telCli\":\""
+                    + escaparJson(cliente.getTelCli())
+                    + "\",");
+
+            out.print("\"correo\":\""
+                    + escaparJson(cliente.getCorreo())
+                    + "\"");
+
+            out.print("}");
+
+            if (i < clientes.size() - 1) {
+                out.print(",");
+            }
+        }
+
+        out.print("]");
+
+        out.flush();
+    }
+
+    // =========================================================
+    // RESPUESTA JSON
+    // =========================================================
+    private void enviarRespuestaJson(
+            HttpServletResponse response,
+            int codigo,
+            boolean exito,
+            String mensaje
+    ) throws IOException {
+
+        response.setStatus(codigo);
+        response.setContentType(
+                "application/json;charset=UTF-8"
+        );
+
+        PrintWriter out = response.getWriter();
+
+        out.print("{");
+
+        out.print("\"exito\":"
+                + exito
+                + ",");
+
+        out.print("\"mensaje\":\""
+                + escaparJson(mensaje)
+                + "\"");
+
+        out.print("}");
+
+        out.flush();
+    }
+
+    // =========================================================
+    // CORS
+    // =========================================================
+    private void configurarCors(
+            HttpServletResponse response
+    ) {
+
+        response.setHeader(
+                "Access-Control-Allow-Origin",
+                "http://localhost:5173"
+        );
+
+        response.setHeader(
+                "Access-Control-Allow-Methods",
+                "GET, POST, OPTIONS"
+        );
+
+        response.setHeader(
+                "Access-Control-Allow-Headers",
+                "Content-Type"
+        );
+    }
+
+    // =========================================================
+    // OPTIONS
+    // =========================================================
+    @Override
+    protected void doOptions(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+
+        configurarCors(response);
+
+        response.setStatus(
+                HttpServletResponse.SC_OK
+        );
+    }
+
+    // =========================================================
+    // ESCAPAR JSON
+    // =========================================================
+    private String escaparJson(String texto) {
+
+        if (texto == null) {
+            return "";
+        }
+
+        return texto
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r");
+    }
 }
